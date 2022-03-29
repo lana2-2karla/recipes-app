@@ -24,53 +24,46 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route path="/foods" component={ Foods } />
-      <Route path="/drinks" component={ Drinks } />
-      <Route
-        path='/foods/:id'
-        render={ (props) => (<DetailsFoods { ...props } />) }
-      />
-      <Route
-        path='/drinks/:id'
-        render={ (props) => (<DetailsDrinks { ...props } />) }
-      />
-      <Route
-        path='/drinks/:id/in-progress'
-        component={ NotFound }
-      />
-      <Route
-        path='/foods/:id/in-progress'
-        render={ (props) => (<InProgressRecipes { ...props } />) }
-      />
-      <Route path="/explore" component={ Explore } />
-      <Route path="/explore/foods" component={ FoodsExplored } />
-      <Route path="/explore/drinks" component={ DrinksExplored } />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route path="/foods" component={ Foods } />
+        <Route path="/drinks" component={ Drinks } />
+        <Route
+          path="/foods/:id"
+          render={ (props) => (<DetailsFoods { ...props } />) }
+        />
+        <Route
+          path="/drinks/:id"
+          render={ (props) => (<DetailsDrinks { ...props } />) }
+        />
+        <Route
+          path="/drinks/:id/in-progress"
+          component={ NotFound }
+        />
+        <Route
+          path="/foods/:id/in-progress"
+          render={ (props) => (<InProgressRecipes { ...props } />) }
+        />
+        <Route path="/explore" component={ Explore } />
+        <Route path="/explore/foods" component={ FoodsExplored } />
+        <Route path="/explore/drinks" component={ DrinksExplored } />
 
-      <Route path="/explore/foods/ingredients" component={ IngredientsExploredFoods } />
-      <Route path="/explore/foods/ingredients" component={ IngredientsExploredDrinks } />
+        <Route path="/explore/foods/ingredients" component={ IngredientsExploredFoods } />
+        <Route
+          path="/explore/foods/ingredients"
+          component={ IngredientsExploredDrinks }
+        />
 
-      <Route path="/explore/foods/nationalities" component={ NationalitiesExplored } />
+        <Route path="/explore/foods/nationalities" component={ NationalitiesExplored } />
 
-      <Route path="/profile" component={ Profile } />
-      <Route path="/done-recipes" component={ DoneRecipes } />
-      <Route path="/favorite-recipes" component={ Favorites } />
+        <Route path="/profile" component={ Profile } />
+        <Route path="/done-recipes" component={ DoneRecipes } />
+        <Route path="/favorite-recipes" component={ Favorites } />
 
-      <Route path="*" component={ NotFound } />
-    </Switch>
+        <Route path="*" component={ NotFound } />
+      </Switch>
     </BrowserRouter>
-    // <div className="meals">
-    //   <span className="logo">TRYBE</span>
-    //   <object
-    //     className="rocksGlass"
-    //     type="image/svg+xml"
-    //     data={ rockGlass }
-    //   >
-    //     Glass
-    //   </object>
-    // </div>
   );
 }
 
