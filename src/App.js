@@ -25,7 +25,7 @@ function App() {
       <Route path="/foods" component={ Recipes } />
       <Route path="/details" component={ Details } />
       <Route
-        path={ `/foods/${id - da - receita}/in-progress` }
+        path={ `/foods/${id}/in-progress` }
         render={ (props) => (<InProgressRecipes { ...props } />) }
       />
       <Route path="/done-recipes" component={ DoneRecipes } />
