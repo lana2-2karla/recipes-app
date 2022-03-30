@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
 
-const Profile = () => {
+const IngredientsExploredFoods = () => {
   const isVisible = false;
 
   return (
     <Header
-      label="Profile"
+      label="Explore Ingredients"
       isVisible={ isVisible }
     />
   );
 };
 
-export default Profile;
+export default IngredientsExploredFoods;
