@@ -15,6 +15,7 @@ const Foods = () => {
   const [filterCategory, setFilterCategory] = useState([]);
   const [endpoint, setEndpoint] = useState(endpointFoodInitial);
   const [isVisibleSearch, setIsVisibleSearch] = useState(false);
+  const [restaure, setRestaure] = useState(false);
   const history = useHistory();
   const MAXIMUN = 12;
   const MAXIMUN_FILTERS = 5;
@@ -22,15 +23,25 @@ const Foods = () => {
 
   const verifyType = (filtered) => {
     let type = '';
-    if (filtered.filterBy === 'category') type = 'filter.php?c';
+    if (filtered.filterBy === 'category') {
+      setRestaure(true);
+      type = 'filter.php?c';
+    }
     if (filtered.filterBy === 'ingredient') type = 'filter.php?i';
     if (filtered.filterBy === 'name') type = 'search.php?s';
     if (filtered.filterBy === 'firstLetter') type = 'search.php?f';
+    if (filtered.searchInput === 'all') return endpointFoodInitial;
 
     return `https://www.themealdb.com/api/json/v1/1/${type}=${filtered.searchInput}`;
   };
 
   const handleDataResults = (filtered) => {
+    if (filtered.filterBy === 'category'
+      && restaure && filtered.searchInput === filter.searchInput) {
+      setRestaure(false);
+      setEndpoint(endpointFoodInitial);
+      return false;
+    }
     setFilter(filtered);
     setEndpoint(verifyType(filtered));
   };
@@ -49,14 +60,14 @@ const Foods = () => {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
         return false;
       }
-      if (meals.length === 1) {
+      if (meals.length === 1 && filter.filterBy !== 'category') {
         history.push(`/foods/${meals[0].idMeal}`);
       } else {
         setData(meals);
       }
     };
     requestAPI();
-  }, [filter]);
+  }, [filter, restaure]);
 
   return (
     <div>
@@ -71,6 +82,14 @@ const Foods = () => {
         />
       )}
       <div>
+        <button
+            data-testid='All-category-filter'
+            onClick={ () => handleDataResults({ searchInput: 'all',
+                filterBy: 'category' }) }
+            type="button"
+            >
+          All
+        </button>
         { filterCategory.map((filterName, index) => index < MAXIMUN_FILTERS && (
           <div key={ Math.random() } id={ index }>
             <FiltersCategory

@@ -16,7 +16,6 @@ const Drinks = () => {
   const [endpoint, setEndpoint] = useState(endpointDrinkInitial);
   const [isVisibleSearch, setIsVisibleSearch] = useState(false);
   const [restaure, setRestaure] = useState(false);
-  const [endpointFilter] = useState(endpointDrinkFilters);
   const history = useHistory();
   const MAXIMUN = 12;
   const MAXIMUN_FILTERS = 5;
@@ -36,12 +35,13 @@ const Drinks = () => {
   };
 
   const handleDataResults = (filtered) => {
-    setFilter(filtered);
-    if (filtered.filterBy === 'category' && restaure) {
+    if (filtered.filterBy === 'category'
+    && restaure && filtered.searchInput === filter.searchInput) {
       setRestaure(false);
       setEndpoint(endpointDrinkInitial);
       return false;
     }
+    setFilter(filtered);
     setEndpoint(verifyType(filtered));
   };
 
@@ -53,7 +53,7 @@ const Drinks = () => {
   useEffect(() => {
     const requestAPI = async () => {
       const results = await requestServer(endpoint);
-      const responseFilters = await requestServer(endpointFilter);
+      const responseFilters = await requestServer(endpointDrinkFilters);
       setFilterCategory(responseFilters.drinks);
       if (results.drinks === null) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.'); // fonte: https://stackoverflow.com/questions/6257619/how-get-an-apostrophe-in-a-string-in-javascript
@@ -66,7 +66,7 @@ const Drinks = () => {
       }
     };
     requestAPI();
-  }, [filter]);
+  }, [filter, restaure]);
 
   return (
     <div>
@@ -81,12 +81,19 @@ const Drinks = () => {
         />
       )}
       <div>
+        <button
+          data-testid='All-category-filter'
+          onClick={ () => handleDataResults({ searchInput: 'all',
+            filterBy: 'category' }) }
+          type="button"
+        >
+          All
+        </button>
         { filterCategory.map((filterName, index) => index < MAXIMUN_FILTERS && (
           <div key={ Math.random() } id={ index }>
             <FiltersCategory
               { ...filterName }
               handleDataResults={ handleDataResults }
-              restaure={ restaure }
               filter={ filter }
             />
           </div>))}
