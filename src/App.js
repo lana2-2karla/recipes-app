@@ -27,39 +27,52 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/foods" component={ Foods } />
-        <Route path="/drinks" component={ Drinks } />
+        <Route exact path="/foods" component={ Foods } />
+        <Route exact path="/drinks" component={ Drinks } />
         <Route
+          exact
           path="/foods/:id"
           render={ (props) => (<DetailsFoods { ...props } />) }
         />
         <Route
+          exact
           path="/drinks/:id"
           render={ (props) => (<DetailsDrinks { ...props } />) }
         />
         <Route
+          exact
           path="/drinks/:id/in-progress"
           component={ NotFound }
         />
         <Route
+          exact
           path="/foods/:id/in-progress"
           render={ (props) => (<InProgressRecipes { ...props } />) }
         />
-        <Route path="/explore" component={ Explore } />
-        <Route path="/explore/foods" component={ FoodsExplored } />
-        <Route path="/explore/drinks" component={ DrinksExplored } />
+        <Route exact path="/explore" component={ Explore } />
+        <Route exact path="/explore/foods" component={ FoodsExplored } />
+        <Route exact path="/explore/drinks" component={ DrinksExplored } />
 
-        <Route path="/explore/foods/ingredients" component={ IngredientsExploredFoods } />
         <Route
+          exact
           path="/explore/foods/ingredients"
+          component={ IngredientsExploredFoods }
+        />
+        <Route
+          exact
+          path="/explore/drinks/ingredients"
           component={ IngredientsExploredDrinks }
         />
 
-        <Route path="/explore/foods/nationalities" component={ NationalitiesExplored } />
+        <Route
+          exact
+          path="/explore/foods/nationalities"
+          component={ NationalitiesExplored }
+        />
 
-        <Route path="/profile" component={ Profile } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/favorite-recipes" component={ Favorites } />
+        <Route exact path="/profile" component={ Profile } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ Favorites } />
 
         <Route path="*" component={ NotFound } />
       </Switch>

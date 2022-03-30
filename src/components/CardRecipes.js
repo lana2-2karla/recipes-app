@@ -1,29 +1,52 @@
 import React from 'react';
-import { string } from 'prop-types';
+import PropTypes, { number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../styles/card.css';
 // import { Card } from 'react-bootstrap';
 
-export default CardRecipes = (infoRecipes) => {
-  const { index, id, name, src } = infoRecipes;
+const CardRecipes = (infoRecipes) => {
+  const { index, type } = infoRecipes;
+  let page;
+  let name;
+  let img;
+  if (type === 'foods') {
+    const { idMeal, strMeal, strMealThumb } = infoRecipes;
+    page = `/foods/${idMeal}`;
+    name = strMeal;
+    img = strMealThumb;
+  }
+
+  if (type === 'drinks') {
+    const { idDrink, strDrink, strDrinkThumb } = infoRecipes;
+    page = `/foods/${idDrink}`;
+    name = strDrink;
+    img = strDrinkThumb;
+  }
   return (
     <Link
       data-testid={ `${index}-recipe-card` }
-      to={ type === 'foods' ? `/foods/${id}` : `/drinks/${id}` }
+      to={ page }
     >
       <img
-        src={ src }
+        src={ img }
         data-testid={ `${index}-card-img` }
         alt={ name }
       />
-      <h2
+      <h3
         data-testid={ `${index}-card-name` }
       >
-        {name}
-      </h2>
+        { name }
+      </h3>
     </Link>
   );
 };
-
 CardRecipes.propTypes = {
-  infoRecipes: string.isRequired,
+  infoRecipes: PropTypes.shape({
+    index: number.isRequired,
+    idMeal: number.isRequired,
+    strMeal: string.isRequired,
+    strMealThumb: string.isRequired,
+  }).isRequired,
 };
+
+export default CardRecipes;
