@@ -4,12 +4,9 @@ import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import CardRecipes from '../components/CardRecipes';
 import SearchHeader from '../components/SearchHeader';
-<<<<<<< HEAD
 import requestServer from '../services/requests';
 import FiltersCategory from '../components/FiltersCategory';
-=======
 import Footer from '../components/Footer';
->>>>>>> 2e8ee3df68f44d78176497887b648b998a18ea92
 
 const Foods = () => {
   const { endpointFoodInitial,
