@@ -1,14 +1,18 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const FoodsExplored = () => {
   const isVisible = false;
 
   return (
-    <Header
-      label="Explore Foods"
-      isVisible={ isVisible }
-    />
+    <div>
+      <Header
+        label="Explore Foods"
+        isVisible={ isVisible }
+      />
+      <Footer />
+    </div>
   );
 };
 

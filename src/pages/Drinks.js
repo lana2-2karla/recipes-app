@@ -6,6 +6,7 @@ import CardRecipes from '../components/CardRecipes';
 import SearchHeader from '../components/SearchHeader';
 import requestServer from '../services/requests';
 import FiltersCategory from '../components/FiltersCategory';
+import Footer from '../components/Footer';
 
 const Drinks = () => {
   const { endpointDrinkInitial,
@@ -108,6 +109,7 @@ const Drinks = () => {
             />
           </div>))}
       </div>
+      <Footer />
     </div>
   );
 };
