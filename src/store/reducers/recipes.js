@@ -1,7 +1,14 @@
-import { SAVE_SEARCH_BAR } from '../actions/index';
+import { SAVE_FILTERS, SAVE_FOODS_DRINKS } from '../actions/index';
 
 const INITIAL_STATE = {
-  recipesFounded: '',
+  recipesFounded: {
+    foods: [],
+    drinks: [],
+  },
+  filters: {
+    foods: [],
+    drinks: [],
+  },
   endpointFoodInitial: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
   endpointDrinkInitial: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
   endpointFoodFilters: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
@@ -10,10 +17,15 @@ const INITIAL_STATE = {
 
 const recipes = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SAVE_SEARCH_BAR:
+  case SAVE_FOODS_DRINKS:
     return {
       ...state,
       recipesFounded: action.payload,
+    };
+  case SAVE_FILTERS:
+    return {
+      ...state,
+      filters: action.payload,
     };
   default:
     return state;

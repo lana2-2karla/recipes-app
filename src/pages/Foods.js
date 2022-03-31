@@ -10,10 +10,11 @@ import Footer from '../components/Footer';
 
 const Foods = () => {
   const { endpointFoodInitial,
-    endpointFoodFilters } = useSelector((state) => state.recipes);
-  const [data, setData] = useState([]);
+    endpointFoodFilters, recipesFounded: { foods },
+    filters } = useSelector((state) => state.recipes);
+  const [data, setData] = useState(foods);
   const [filter, setFilter] = useState({});
-  const [filterCategory, setFilterCategory] = useState([]);
+  const [filterCategory, setFilterCategory] = useState(filters.foods);
   const [endpoint, setEndpoint] = useState(endpointFoodInitial);
   const [isVisibleSearch, setIsVisibleSearch] = useState(false);
   const [restaure, setRestaure] = useState(false);
