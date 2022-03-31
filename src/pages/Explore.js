@@ -18,7 +18,7 @@ const Explore = () => {
           data-testid="explore-foods"
           type="button"
           name="btn-foods"
-          value="btn-explore-food"
+          value="btn-explore-foods"
           onClick={ () => history.push('/explore/foods') }
         >
           Explore Foods
@@ -27,7 +27,7 @@ const Explore = () => {
           data-testid="explore-drinks"
           type="button"
           name="btn-drink"
-          value="btn-explore-drink"
+          value="btn-explore-drinks"
           onClick={ () => history.push('/explore/drinks') }
         >
           Explore Drinks
