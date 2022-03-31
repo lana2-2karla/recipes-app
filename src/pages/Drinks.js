@@ -35,8 +35,8 @@ const Drinks = () => {
   };
 
   const handleDataResults = (filtered) => {
-    if (filtered.filterBy === 'category'
-    && restaure && filtered.searchInput === filter.searchInput) {
+    if (filtered.searchInput === 'all' || (filtered.filterBy === 'category'
+      && restaure && filtered.searchInput === filter.searchInput)) {
       setRestaure(false);
       setEndpoint(endpointDrinkInitial);
       return false;
@@ -82,7 +82,7 @@ const Drinks = () => {
       )}
       <div>
         <button
-          data-testid='All-category-filter'
+          data-testid="All-category-filter"
           onClick={ () => handleDataResults({ searchInput: 'all',
             filterBy: 'category' }) }
           type="button"

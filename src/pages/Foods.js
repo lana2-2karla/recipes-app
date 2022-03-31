@@ -30,14 +30,13 @@ const Foods = () => {
     if (filtered.filterBy === 'ingredient') type = 'filter.php?i';
     if (filtered.filterBy === 'name') type = 'search.php?s';
     if (filtered.filterBy === 'firstLetter') type = 'search.php?f';
-    if (filtered.searchInput === 'all') return endpointFoodInitial;
 
     return `https://www.themealdb.com/api/json/v1/1/${type}=${filtered.searchInput}`;
   };
 
   const handleDataResults = (filtered) => {
-    if (filtered.filterBy === 'category'
-      && restaure && filtered.searchInput === filter.searchInput) {
+    if (filtered.searchInput === 'all' || (filtered.filterBy === 'category'
+      && restaure && filtered.searchInput === filter.searchInput)) {
       setRestaure(false);
       setEndpoint(endpointFoodInitial);
       return false;
@@ -83,11 +82,11 @@ const Foods = () => {
       )}
       <div>
         <button
-            data-testid='All-category-filter'
-            onClick={ () => handleDataResults({ searchInput: 'all',
-                filterBy: 'category' }) }
-            type="button"
-            >
+          data-testid="All-category-filter"
+          onClick={ () => handleDataResults({ searchInput: 'all',
+            filterBy: 'category' }) }
+          type="button"
+        >
           All
         </button>
         { filterCategory.map((filterName, index) => index < MAXIMUN_FILTERS && (
