@@ -1,52 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-const Ingredients = () => {
-  const { currentRecipe } = useSelector((state) => state.progress);
+const Ingredients = (infoRecipe) => {
   const [ingredients, setIngredients] = useState([]);
-  const { location: { pathname } } = useHistory();
+  const [measure, setMeasure] = useState([]);
+  const [checked, setChecked] = useState([]);
+  const [disableButton, setDisabled] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
-    if (currentRecipe) {
-      const arrValues = Object.values(currentRecipe);
-      const twenty = 20;
-      const nine = 9;
-      const twentyNine = 29;
-      for (let index = nine; index < twentyNine; index += 1) {
-        if (arrValues[index].length) {
-          const item = `${arrValues[index]} - ${arrValues[index + twenty]}`;
-          setIngredients((previous) => [...previous, item]);
+    const newDataIng = [];
+    const newMeasure = [];
+    const infoIngredients = Object.keys(infoRecipe);
+    const verifyExistIng = infoIngredients.some((item) => item.includes('strIng'));
+    if (verifyExistIng) {
+      infoIngredients.forEach((element, index) => {
+        const newIngredient = Object.values(infoRecipe)[index];
+        if (element.includes('strIng')
+          && newIngredient !== null && newIngredient.length) {
+          newDataIng.push(newIngredient);
         }
-      }
+        if (element.includes('strMeas')
+          && newIngredient !== null && newIngredient.length) {
+          newMeasure.push(newIngredient);
+        }
+      });
     }
-    console.log(ingredients);
-  }, [setIngredients]);
+    setIngredients(newDataIng);
+    setMeasure(newMeasure);
+    const newChecked = newDataIng.slice();
+    setChecked(newChecked.fill(false));
+  }, [infoRecipe]);
+
+  const handleValidationFinish = (newChecked) => {
+    const isAllChecked = newChecked.every((element) => element === true);
+    setDisabled(!isAllChecked);
+  };
+
+  const handleCheckbox = (index) => {
+    const newChecked = checked
+      .map((element, indexCheck) => (indexCheck === index ? !element : element));
+    setChecked(newChecked);
+    handleValidationFinish(newChecked);
+  };
+
+  const handleFinished = () => {
+    history.push('/done-recipes');
+  };
 
   return (
     <div>
-      { pathname.includes('/in-progress')
-        ? (
-          <div>
-            { ingredients.map((item, index) => (
-              <div key={ index }>
-                <label htmlFor={ item }>
-                  { item }
-                </label>
-              </div>
-            ))}
-          </div>)
-        : (
-          <ul>
-            { ingredients.map((item, index) => (
-              <li
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                { item }
-              </li>
-            ))}
-          </ul>)}
+      { ingredients.map((item, index) => (
+        <div key={ index } data-testid={ `${index}-ingredient-step` }>
+          <input
+            id={ item }
+            type="checkbox"
+            onChange={ () => handleCheckbox(index) }
+            checked={ checked[index] }
+            value={ checked[index] }
+          />
+          <label
+            htmlFor={ item }
+            style={ checked[index] ? { textDecoration: 'line-through' }
+              : { textDecoration: 'none' } }
+          >
+            {`${item} - ${measure[index]}`}
+          </label>
+        </div>
+      ))}
+      <button
+        data-testid="finish-recipe-btn"
+        onClick={ handleFinished }
+        disabled={ disableButton }
+        type="button"
+      >
+        Finish Recipe
+      </button>
     </div>
   );
 };

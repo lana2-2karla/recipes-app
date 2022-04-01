@@ -1,4 +1,5 @@
-import { SAVE_RECIPE_FINISHED, SAVE_RECIPE_STARTED } from '../actions/index';
+import { SAVE_RECIPE_FINISHED,
+  SAVE_RECIPE_STARTED } from '../actions/index';
 
 // const INITIAL_STATE = { currentRecipe: {
 //   idMeal: '52977',
@@ -57,7 +58,7 @@ import { SAVE_RECIPE_FINISHED, SAVE_RECIPE_STARTED } from '../actions/index';
 // },
 // finished: [] };
 
-const INITIAL_STATE = { currentRecipe: [], finished: [] };
+const INITIAL_STATE = { currentRecipe: [], finished: [], disableButton: false };
 const progress = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_RECIPE_STARTED:
@@ -70,6 +71,11 @@ const progress = (state = INITIAL_STATE, action) => {
       ...state,
       finished: [...state.finished, action.payload],
     };
+  // case VERIFY_CHECK_ING:
+  //   return {
+  //     ...state,
+  //     disableButton: action.payload,
+  //   };
   default:
     return state;
   }

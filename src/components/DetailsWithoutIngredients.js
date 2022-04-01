@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import requestServer from '../services/requests';
 import { recipeStarted } from '../store/actions';
+import Ingredients from './Ingredients';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -10,6 +11,7 @@ const DetailsWithoutIng = () => {
   const dispatch = useDispatch();
   const { params: { id } } = useRouteMatch();
   const { location: { pathname } } = useHistory();
+  const [allInfo, setAllInfo] = useState([]);
   const [data, setdata] = useState({ title: '',
     photo: '',
     category: '',
@@ -28,6 +30,7 @@ const DetailsWithoutIng = () => {
       const results = await requestServer(verifyType());
       const type = (results.meals ? results.meals : results.drinks);
       dispatch(recipeStarted(type[0]));
+      setAllInfo(type[0]);
       setdata((previous) => ({ ...previous,
         category: type[0].strCategory,
         instructions: type[0].strInstructions }));
@@ -71,6 +74,7 @@ const DetailsWithoutIng = () => {
       />
       <h4 data-testid="recipe-category">{ data.category }</h4>
       <p data-testid="instructions">{ data.instructions }</p>
+      <Ingredients { ...allInfo } />
     </div>
   );
 };
