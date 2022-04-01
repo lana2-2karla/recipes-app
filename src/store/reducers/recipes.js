@@ -20,7 +20,10 @@ const recipes = (state = INITIAL_STATE, action) => {
   case SAVE_FOODS_DRINKS:
     return {
       ...state,
-      recipesFounded: action.payload,
+      recipesFounded: {
+        ...state.recipesFounded,
+        [action.key]: action.data,
+      },
     };
   case SAVE_FILTERS:
     return {

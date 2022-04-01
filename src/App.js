@@ -43,7 +43,7 @@ function App() {
         <Route
           exact
           path="/drinks/:id/in-progress"
-          component={ NotFound }
+          render={ (props) => (<InProgressRecipes { ...props } />) }
         />
         <Route
           exact
