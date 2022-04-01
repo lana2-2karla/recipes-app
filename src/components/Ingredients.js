@@ -20,6 +20,7 @@ const Ingredients = () => {
         }
       }
     }
+    console.log(ingredients);
   }, [setIngredients]);
 
   return (
@@ -29,12 +30,6 @@ const Ingredients = () => {
           <div>
             { ingredients.map((item, index) => (
               <div key={ index }>
-                <input
-                  id={ item }
-                  type="checkbox"
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                  value={ item }
-                />
                 <label htmlFor={ item }>
                   { item }
                 </label>
