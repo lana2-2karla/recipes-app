@@ -14,15 +14,6 @@ const Drinks = () => {
   const MAXIMUN = 12;
   const isVisible = true;
 
-  useEffect(() => {
-    const requestAPI = async () => {
-      const response = await fetch(endpoint);
-      const { drinks } = await response.json();
-      setData(drinks);
-    };
-    requestAPI();
-  }, []);
-
   const verifyType = (filtered) => {
     let type = '';
     if (filtered.filterBy === 'ingredient') type = 'filter.php?i';

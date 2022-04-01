@@ -13,19 +13,6 @@ const Foods = () => {
   const MAXIMUN = 12;
   const isVisible = true;
 
-  useEffect(() => {
-    const requestAPI = async () => {
-      const response = await fetch(endpoint);
-      const { meals } = await response.json();
-      if (meals === null) {
-        global.alert('Sorry, we haven`t found any recipes for these filters.');
-        return false;
-      }
-      setData(meals);
-    };
-    requestAPI();
-  }, []);
-
   const verifyType = (filtered) => {
     let type = '';
     if (filtered.filterBy === 'ingredient') type = 'filter.php?i';
