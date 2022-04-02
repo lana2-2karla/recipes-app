@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import addProgressToLocal from '../services';
+import { addProgressToLocal, getProgressFromLocal } from '../services/index';
 
 const Ingredients = (infoRecipe) => {
   const [ingredients, setIngredients] = useState([]);
@@ -9,6 +9,23 @@ const Ingredients = (infoRecipe) => {
   const [disableButton, setDisabled] = useState(true);
   const history = useHistory();
   const { id, label } = infoRecipe;
+
+  const verifyIDLocalStorage = (newDataIng) => {
+    const { meals } = getProgressFromLocal();
+    console.log(meals);
+    let newChecked = newDataIng.slice();
+    let key = '';
+    if (label.includes('/foods/')) key = 'meals';
+    if (label.includes('/drinks/')) key = 'cocktails';
+    if (!key[id]) {
+      setChecked(newChecked.fill(false));
+      return false;
+    }
+    const stepsCheckedBefore = key[id];
+    newChecked = newChecked.map((_item, index) => stepsCheckedBefore
+      .includes(index));
+    console.log(newChecked);
+  };
 
   useEffect(() => {
     const newDataIng = [];
@@ -30,8 +47,7 @@ const Ingredients = (infoRecipe) => {
     }
     setIngredients(newDataIng);
     setMeasure(newMeasure);
-    const newChecked = newDataIng.slice();
-    setChecked(newChecked.fill(false));
+    verifyIDLocalStorage(newDataIng);
   }, [infoRecipe]);
 
   const handleValidationFinish = (newChecked) => {
@@ -39,18 +55,24 @@ const Ingredients = (infoRecipe) => {
     setDisabled(!isAllChecked);
   };
 
+  const handleLocalStorageUpdate = (newChecked) => {
+    let key = '';
+    if (label.includes('/foods/')) key = 'meals';
+    if (label.includes('/drinks/')) key = 'cocktails';
+    const allCheckedStep = newChecked.map((item, index) => (item && index))
+      .filter((item) => item !== false);
+    addProgressToLocal(key, { id, ingredients: allCheckedStep });
+  };
+
   const handleCheckbox = (index) => {
     const newChecked = checked
       .map((element, indexCheck) => (indexCheck === index ? !element : element));
     setChecked(newChecked);
     handleValidationFinish(newChecked);
+    handleLocalStorageUpdate(newChecked);
   };
 
   const handleFinished = () => {
-    let key = '';
-    if (label.includes('/foods/')) key = 'meals';
-    if (label.includes('/drinks/')) key = 'cocktails';
-    addProgressToLocal(key, { [id]: [ingredients, measure] });
     history.push('/done-recipes');
   };
 
