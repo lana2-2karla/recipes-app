@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     drinks: [],
   },
 
-  recipesFounded: '',
+  // recipesFounded: '',
   endpointFoodInitial: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
   endpointDrinkInitial: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
   endpointFoodFilters: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
