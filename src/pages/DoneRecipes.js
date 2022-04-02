@@ -13,7 +13,7 @@ const DoneRecipes = () => {
         isVisible={ isVisible }
       />
       <ButtonsDoneAndFavorites />
-      <CardDoneRecipes /> 
+      <CardDoneRecipes />
 
     </>
   );
