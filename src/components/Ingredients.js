@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import addProgressToLocal from '../services';
 
 const Ingredients = (infoRecipe) => {
   const [ingredients, setIngredients] = useState([]);
@@ -7,6 +8,7 @@ const Ingredients = (infoRecipe) => {
   const [checked, setChecked] = useState([]);
   const [disableButton, setDisabled] = useState(true);
   const history = useHistory();
+  const { id, label } = infoRecipe;
 
   useEffect(() => {
     const newDataIng = [];
@@ -45,6 +47,10 @@ const Ingredients = (infoRecipe) => {
   };
 
   const handleFinished = () => {
+    let key = '';
+    if (label.includes('/foods/')) key = 'meals';
+    if (label.includes('/drinks/')) key = 'cocktails';
+    addProgressToLocal(key, { [id]: [ingredients, measure] });
     history.push('/done-recipes');
   };
 

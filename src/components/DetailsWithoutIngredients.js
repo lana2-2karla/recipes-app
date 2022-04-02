@@ -74,7 +74,7 @@ const DetailsWithoutIng = () => {
       />
       <h4 data-testid="recipe-category">{ data.category }</h4>
       <p data-testid="instructions">{ data.instructions }</p>
-      <Ingredients { ...allInfo } />
+      <Ingredients { ...allInfo } id={ id } label={ pathname } />
     </div>
   );
 };
