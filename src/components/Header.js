@@ -8,6 +8,7 @@ import searchIcon from '../images/searchIcon.svg';
 const Header = (props) => {
   const { label, isVisible, toggleSearch } = props;
   const history = useHistory();
+  // console.log(history);
 
   const handleClick = () => {
     history.push('/profile');

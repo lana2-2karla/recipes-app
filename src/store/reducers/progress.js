@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { SAVE_RECIPE_FINISHED,
   SAVE_RECIPE_STARTED } from '../actions/index';
 
@@ -59,6 +60,12 @@ import { SAVE_RECIPE_FINISHED,
 // finished: [] };
 
 const INITIAL_STATE = { currentRecipe: [], finished: [], disableButton: false };
+=======
+import { SAVE_RECIPE_STARTED } from '../actions/index';
+
+const INITIAL_STATE = { currentRecipe: { meals: [], drinks: [] } };
+
+>>>>>>> 864f1c60acfd3219a886f20a43c429023241f704
 const progress = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_RECIPE_STARTED:
@@ -66,6 +73,7 @@ const progress = (state = INITIAL_STATE, action) => {
       ...state,
       currentRecipe: action.payload,
     };
+<<<<<<< HEAD
   case SAVE_RECIPE_FINISHED:
     return {
       ...state,
@@ -76,6 +84,8 @@ const progress = (state = INITIAL_STATE, action) => {
   //     ...state,
   //     disableButton: action.payload,
   //   };
+=======
+>>>>>>> 864f1c60acfd3219a886f20a43c429023241f704
   default:
     return state;
   }

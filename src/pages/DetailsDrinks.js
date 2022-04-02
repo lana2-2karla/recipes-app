@@ -11,7 +11,10 @@ import '../index.css';
 const DetailsDrinks = () => {
   const { params: { id } } = useRouteMatch();
   const [ingredient, setIngredient] = useState([]);
+<<<<<<< HEAD
   const [isCopied, setCopied] = useState(false);
+=======
+>>>>>>> 864f1c60acfd3219a886f20a43c429023241f704
   const [data, setData] = useState({
     strDrink: '',
     strAlcoholic: '',
@@ -22,6 +25,10 @@ const DetailsDrinks = () => {
   const dispatch = useDispatch();
   const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const urlFoods = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+<<<<<<< HEAD
+=======
+  // console.log(url);
+>>>>>>> 864f1c60acfd3219a886f20a43c429023241f704
   const arrIngredients = (details) => {
     const arrValues = Object.values(details);
     const fifteen = 15;
