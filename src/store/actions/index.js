@@ -1,11 +1,8 @@
 export const SAVE_FOODS_DRINKS = 'SAVE_FOODS_DRINKS';
 export const SAVE_FILTERS = 'SAVE_FILTERS';
 export const SAVE_RECIPE_STARTED = 'SAVE_RECIPE_STARTED';
-<<<<<<< HEAD
 export const SAVE_RECIPE_FINISHED = 'SAVE_RECIPE_FINISHED';
 export const VERIFY_CHECK_ING = 'VERIFY_CHECK_ING';
-=======
->>>>>>> 864f1c60acfd3219a886f20a43c429023241f704
 
 export const saveFoodsAndDrinks = (key, data) => (
   { type: SAVE_FOODS_DRINKS, key, data }
@@ -17,7 +14,6 @@ export const saveFilters = (payload) => (
 
 export const recipeStarted = (payload) => (
   { type: SAVE_RECIPE_STARTED, payload }
-<<<<<<< HEAD
 );
 
 export const recipeFinished = (payload) => (
@@ -26,6 +22,4 @@ export const recipeFinished = (payload) => (
 
 export const validationFinishButton = (payload) => (
   { type: VERIFY_CHECK_ING, payload }
-=======
->>>>>>> 864f1c60acfd3219a886f20a43c429023241f704
 );
