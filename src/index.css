@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.scrol-drinks {
+  /* overflow: auto; */
+  width: 120px;
+  margin: 10px;
+  /* text-align: center;
+  text-decoration: none;
+  overflow: auto; */
+}
+
+.content-scroll {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.btn-fixed {
+  padding: 5px;
+  position: fixed;
+  bottom: 0px;
+}

@@ -18,7 +18,7 @@ const CardRecipes = (infoRecipes) => {
 
   if (type === 'drinks') {
     const { idDrink, strDrink, strDrinkThumb } = infoRecipes;
-    page = `/foods/${idDrink}`;
+    page = `/drinks/${idDrink}`;
     name = strDrink;
     img = strDrinkThumb;
   }
