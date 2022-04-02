@@ -6,31 +6,39 @@ import { recipeStarted } from '../store/actions';
 import Ingredients from './Ingredients';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import verifyType from '../services/createURL';
+import { checkInfoInLocal, toggleFavorite } from '../services/checkLocalStorageInfo';
 
 const DetailsWithoutIng = () => {
   const dispatch = useDispatch();
   const { params: { id } } = useRouteMatch();
   const { location: { pathname } } = useHistory();
   const [allInfo, setAllInfo] = useState([]);
+  const [isCopied, setCopied] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
   const [data, setdata] = useState({ title: '',
     photo: '',
     category: '',
     instructions: '' });
-
-  const verifyType = () => {
-    let type = '';
-    if (pathname.includes('/foods/')) type = 'themealdb';
-    if (pathname.includes('/drinks/')) type = 'thecocktaildb';
-
-    return `https://www.${type}.com/api/json/v1/1/lookup.php?i=${id}`;
+  const handleShare = () => {
+    const url = window.location.href;
+    const newUrl = url.replace('/in-progress', '');
+    navigator.clipboard.writeText(newUrl);
+    setCopied(true);
   };
-
+  const handleFavorite = () => {
+    const checkToggle = !isFavorited;
+    setIsFavorited(checkToggle);
+    toggleFavorite({ id, favorite: allInfo });
+  };
   useEffect(() => {
     const requestAPI = async () => {
-      const results = await requestServer(verifyType());
+      const results = await requestServer(verifyType(id, pathname));
       const type = (results.meals ? results.meals : results.drinks);
       dispatch(recipeStarted(type[0]));
       setAllInfo(type[0]);
+      setIsFavorited(checkInfoInLocal(id));
       setdata((previous) => ({ ...previous,
         category: type[0].strCategory,
         instructions: type[0].strInstructions }));
@@ -60,18 +68,19 @@ const DetailsWithoutIng = () => {
       </h3>
       <input
         data-testid="share-btn"
-        // onClick={ }
+        onClick={ handleShare }
         type="image"
         src={ shareIcon }
         alt="Share"
       />
       <input
         data-testid="favorite-btn"
-        // onClick={ }
+        onClick={ handleFavorite }
         type="image"
-        src={ whiteHeartIcon }
+        src={ !isFavorited ? whiteHeartIcon : blackHeartIcon }
         alt="Favorite"
       />
+      { isCopied ? <p>Link copied!</p> : false}
       <h4 data-testid="recipe-category">{ data.category }</h4>
       <p data-testid="instructions">{ data.instructions }</p>
       <Ingredients { ...allInfo } id={ id } label={ pathname } />

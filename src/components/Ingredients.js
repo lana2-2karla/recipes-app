@@ -11,20 +11,30 @@ const Ingredients = (infoRecipe) => {
   const { id, label } = infoRecipe;
 
   const verifyIDLocalStorage = (newDataIng) => {
-    const { meals } = getProgressFromLocal();
-    console.log(meals);
     let newChecked = newDataIng.slice();
     let key = '';
     if (label.includes('/foods/')) key = 'meals';
     if (label.includes('/drinks/')) key = 'cocktails';
-    if (!key[id]) {
+
+    const progress = localStorage.getItem('inProgressRecipes');
+    if (!progress) {
       setChecked(newChecked.fill(false));
       return false;
     }
-    const stepsCheckedBefore = key[id];
-    newChecked = newChecked.map((_item, index) => stepsCheckedBefore
-      .includes(index));
-    console.log(newChecked);
+    const results = getProgressFromLocal()[key];
+    if (!results) {
+      setChecked(newChecked.fill(false));
+      return false;
+    }
+    const stepsCheckedBefore = results[id];
+    newChecked = newChecked.map((_item, index) => {
+      let isCheck = false;
+      stepsCheckedBefore.forEach((itemCheck) => {
+        if (itemCheck === index) isCheck = true;
+      });
+      return isCheck;
+    });
+    setChecked(newChecked);
   };
 
   useEffect(() => {
