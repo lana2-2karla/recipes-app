@@ -1,6 +1,7 @@
 import { SAVE_FILTERS, SAVE_FOODS_DRINKS } from '../actions/index';
 
 const INITIAL_STATE = {
+
   recipesFounded: {
     foods: [],
     drinks: [],
@@ -9,6 +10,8 @@ const INITIAL_STATE = {
     foods: [],
     drinks: [],
   },
+
+  recipesFounded: '',
   endpointFoodInitial: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
   endpointDrinkInitial: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
   endpointFoodFilters: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
