@@ -110,7 +110,7 @@ const DetailsFoods = () => {
                 alt={ drink.strDrink }
               />
               <p>{ drink.strAlcoholic }</p>
-              <p>{ drink.strDrink }</p>
+              <p data-testid={ `${index}-recomendation-title` }>{ drink.strDrink }</p>
             </div>
           ))
         }
