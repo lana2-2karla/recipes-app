@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { recipeStarted } from '../store/actions';
 import sharePicture from '../images/shareIcon.svg';
 import blackHeartPicture from '../images/blackHeartIcon.svg';
@@ -12,6 +12,7 @@ import { checkInfoInLocal, toggleFavorite } from '../services/checkLocalStorageI
 
 const DetailsDrinks = () => {
   const { params: { id } } = useRouteMatch();
+  const history = useHistory();
   const [ingredient, setIngredient] = useState([]);
   const [isCopied, setCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -69,6 +70,9 @@ const DetailsDrinks = () => {
     const checkToggle = !isFavorited;
     setIsFavorited(checkToggle);
     toggleFavorite({ id, favorite: data });
+  };
+  const handleStarted = () => {
+    history.push(`/drinks/${id}/in-progress`);
   };
   useEffect(() => {
     const requestAPI = async () => {
@@ -145,6 +149,7 @@ const DetailsDrinks = () => {
         className="btn-fixed"
         data-testid="start-recipe-btn"
         type="button"
+        onClick={ handleStarted }
       >
         Start Recipe
       </button>
