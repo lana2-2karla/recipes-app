@@ -11,6 +11,7 @@ import '../index.css';
 const DetailsDrinks = () => {
   const { params: { id } } = useRouteMatch();
   const [ingredient, setIngredient] = useState([]);
+  const [isCopied, setCopied] = useState(false);
   const [data, setData] = useState({
     strDrink: '',
     strAlcoholic: '',
@@ -21,7 +22,6 @@ const DetailsDrinks = () => {
   const dispatch = useDispatch();
   const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const urlFoods = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  // console.log(url);
   const arrIngredients = (details) => {
     const arrValues = Object.values(details);
     const fifteen = 15;
@@ -37,7 +37,12 @@ const DetailsDrinks = () => {
     }
     return ingredients;
   };
-
+  const handleShare = () => {
+    const urlPage = window.location.href;
+    const newUrl = urlPage.replace('/in-progress', '');
+    navigator.clipboard.writeText(newUrl);
+    setCopied(true);
+  };
   useEffect(() => {
     (async () => {
       const six = 6;
@@ -61,7 +66,7 @@ const DetailsDrinks = () => {
         data-testid="share-btn"
         name="share-btn"
         type="image"
-        // onClick={ handleClick }
+        onClick={ handleShare }
         src={ sharePicture }
         alt="share"
       />
@@ -73,6 +78,7 @@ const DetailsDrinks = () => {
         src={ whiteHeartPicture }
         alt="favorite"
       />
+      { isCopied ? <p>Link copied!</p> : false}
       <p data-testid="recipe-category">{ data.strAlcoholic }</p>
       <ul>
         {

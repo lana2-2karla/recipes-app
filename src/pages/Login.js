@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -62,11 +61,5 @@ const Login = () => {
     </div>
   );
 };
-
-/* Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-}; */
 
 export default Login;

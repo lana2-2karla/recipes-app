@@ -11,6 +11,7 @@ import '../index.css';
 const DetailsFoods = () => {
   const { params: { id } } = useRouteMatch();
   const [ingredient, setIngredient] = useState([]);
+  const [isCopied, setCopied] = useState(false);
   const [data, setData] = useState({
     strMeal: '',
     strCategory: '',
@@ -37,7 +38,12 @@ const DetailsFoods = () => {
     }
     return ingredients;
   };
-
+  const handleShare = () => {
+    const urlPage = window.location.href;
+    const newUrl = urlPage.replace('/in-progress', '');
+    navigator.clipboard.writeText(newUrl);
+    setCopied(true);
+  };
   useEffect(() => {
     (async () => {
       const six = 6;
@@ -63,7 +69,7 @@ const DetailsFoods = () => {
         data-testid="share-btn"
         name="share-btn"
         type="image"
-        // onClick={ handleClick }
+        onClick={ handleShare }
         src={ sharePicture }
         alt="share"
       />
@@ -75,6 +81,7 @@ const DetailsFoods = () => {
         src={ whiteHeartPicture }
         alt="favorite"
       />
+      { isCopied ? <p>Link copied!</p> : false}
       <p data-testid="recipe-category">{ data.strCategory }</p>
       <ul>
         {

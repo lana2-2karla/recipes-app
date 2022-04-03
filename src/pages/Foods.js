@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import CardRecipes from '../components/CardRecipes';
 import SearchHeader from '../components/SearchHeader';
 import requestServer from '../services/requests';
 import FiltersCategory from '../components/FiltersCategory';
 import Footer from '../components/Footer';
+import { saveFoodsAndDrinks } from '../store/actions';
 
 const Foods = () => {
   const { endpointFoodInitial,
-    endpointFoodFilters } = useSelector((state) => state.recipes);
-  const [data, setData] = useState([]);
+    endpointFoodFilters, recipesFounded: { foods },
+    filters } = useSelector((state) => state.recipes);
+  const dispatch = useDispatch();
+  const [data, setData] = useState(foods);
   const [filter, setFilter] = useState({});
-  const [filterCategory, setFilterCategory] = useState([]);
+  const [filterCategory, setFilterCategory] = useState(filters.foods);
   const [endpoint, setEndpoint] = useState(endpointFoodInitial);
   const [isVisibleSearch, setIsVisibleSearch] = useState(false);
   const [restaure, setRestaure] = useState(false);
@@ -56,6 +59,7 @@ const Foods = () => {
       const { meals } = await requestServer(endpoint);
       const responseFilters = await requestServer(endpointFoodFilters);
       setFilterCategory(responseFilters.meals);
+      if (!foods.length) dispatch(saveFoodsAndDrinks('foods', meals));
       if (meals === null) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
         return false;
