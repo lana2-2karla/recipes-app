@@ -36,7 +36,8 @@ export const addDoneToLocal = (doneRecipe) => {
   }
 };
 // OUTPUT : [{ id: id-da-receita,
-//     type: comida-ou-bebida, nationality: nacionalidade-da-receita-ou-texto-vazio,
+//     type: comida-ou-bebida,
+//     nationality: nacionalidade-da-receita-ou-texto-vazio,
 //     category: categoria-da-receita-ou-texto-vazio,
 //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
 //     name: nome-da-receita,
@@ -69,7 +70,7 @@ export const removeFavoriteFromLocal = (id) => {
   if (id) {
     const favoriteStored = getFavoritesFromLocal();
     const favoritesRemovedEx = favoriteStored
-      .map((favoriteRecipe) => favoriteRecipe.id === id);
+      .filter((favoriteRecipe) => favoriteRecipe.id !== id);
     sendFavoriteToLocal(favoritesRemovedEx);
   }
 };

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { recipeStarted } from '../store/actions';
 import sharePicture from '../images/shareIcon.svg';
-// import blackHeartPicture from '../images/blackHeartIcon.svg';
+import blackHeartPicture from '../images/blackHeartIcon.svg';
 import whiteHeartPicture from '../images/whiteHeartIcon.svg';
 import requestServer from '../services/requests';
 import '../index.css';
+import { checkInfoInLocal, toggleFavorite } from '../services/checkLocalStorageInfo';
 
 const DetailsFoods = () => {
   const { params: { id } } = useRouteMatch();
+  const history = useHistory();
   const [ingredient, setIngredient] = useState([]);
   const [isCopied, setCopied] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
   const [data, setData] = useState({
     strMeal: '',
     strCategory: '',
@@ -23,7 +26,6 @@ const DetailsFoods = () => {
   const dispatch = useDispatch();
   const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const urlDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-  console.log(data);
   const arrIngredients = (details) => {
     const arrValues = Object.values(details);
     const twenty = 20;
@@ -44,22 +46,29 @@ const DetailsFoods = () => {
     navigator.clipboard.writeText(newUrl);
     setCopied(true);
   };
+  const handleFavorite = () => {
+    const checkToggle = !isFavorited;
+    setIsFavorited(checkToggle);
+    toggleFavorite({ id, favorite: data });
+  };
+  const handleStarted = () => {
+    history.push(`/foods/${id}/in-progress`);
+  };
   useEffect(() => {
-    (async () => {
+    const requestAPI = async () => {
       const six = 6;
       const { meals } = await requestServer(url);
       const resultDrinks = await requestServer(urlDrinks);
       const detailRecipe = meals[0];
       const recomendationDrinks = resultDrinks.drinks.slice(0, six);
-      console.log(recomendationDrinks);
       setData(detailRecipe);
-      console.log(data);
       setDrinks(recomendationDrinks);
+      setIsFavorited(checkInfoInLocal(id));
       setIngredient(arrIngredients(detailRecipe));
       dispatch(recipeStarted(detailRecipe));
-    })();
+    };
+    requestAPI();
   }, []);
-  console.log({ data });
 
   return (
     <div>
@@ -77,8 +86,8 @@ const DetailsFoods = () => {
         data-testid="favorite-btn"
         name="favorite-btn"
         type="image"
-        // onClick={ handleClick }
-        src={ whiteHeartPicture }
+        onClick={ handleFavorite }
+        src={ !isFavorited ? whiteHeartPicture : blackHeartPicture }
         alt="favorite"
       />
       { isCopied ? <p>Link copied!</p> : false}
@@ -126,6 +135,7 @@ const DetailsFoods = () => {
         className="btn-fixed"
         data-testid="start-recipe-btn"
         type="button"
+        onClick={ handleStarted }
       >
         Start Recipe
       </button>
