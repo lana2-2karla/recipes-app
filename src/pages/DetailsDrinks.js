@@ -8,6 +8,7 @@ import whiteHeartPicture from '../images/whiteHeartIcon.svg';
 import requestServer from '../services/requests';
 import '../index.css';
 import { checkInfoInLocal, toggleFavorite } from '../services/checkLocalStorageInfo';
+// import useIngredientsList from '../functions/useIngredientsList';
 
 const DetailsDrinks = () => {
   const { params: { id } } = useRouteMatch();
@@ -24,6 +25,7 @@ const DetailsDrinks = () => {
   const dispatch = useDispatch();
   const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const urlFoods = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+
   const arrIngredients = (details) => {
     const newDataIng = [];
     const newMeasure = [];
@@ -76,7 +78,6 @@ const DetailsDrinks = () => {
       const detailRecipe = drinks[0];
       const recomendationFoods = resultFoods.meals.slice(0, six);
       setData(detailRecipe);
-      console.log(data);
       setFoods(recomendationFoods);
       setIsFavorited(checkInfoInLocal(id));
       setIngredient(arrIngredients(detailRecipe));
