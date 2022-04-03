@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { doneRecipes } from '../services/checkLocalStorageInfo';
 import { addProgressToLocal, getProgressFromLocal } from '../services/index';
 
 const Ingredients = (infoRecipe) => {
@@ -22,7 +23,7 @@ const Ingredients = (infoRecipe) => {
       return false;
     }
     const results = getProgressFromLocal()[key];
-    if (!results) {
+    if (!results || !results[id]) {
       setChecked(newChecked.fill(false));
       return false;
     }
@@ -83,6 +84,7 @@ const Ingredients = (infoRecipe) => {
   };
 
   const handleFinished = () => {
+    doneRecipes({ id, done: infoRecipe, date: new Date() });
     history.push('/done-recipes');
   };
 
