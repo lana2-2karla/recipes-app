@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import ButtonsDoneAndFavorites from './ButtonsDoneAndFavorites';
 import shareIcon from '../images/shareIcon.svg';
-// import { doneRecipe } from '../services/checkLocalStorageInfo';
 
 const CardDoneRecipes = () => {
   const [recipesFromStorage, setRecipesFromStorage] = useState([]);
   const [recipesToRender, setRecipesToRender] = useState([]);
-  const [isCopied, setCopied] = useState(false);
+  const [isCopied, setCopied] = useState();
 
   useEffect(() => {
     const getRecipesFromStorage = () => {
@@ -42,12 +41,11 @@ const CardDoneRecipes = () => {
     }
   };
 
-  function handleClick(id, type) {
-    console.log(isCopied);
+  function handleShare(id, type) {
     const url = window.location.href;
     const newUrl = url.replace('/done-recipes', '');
     copy(`${newUrl}/${type}s/${id}`);
-    setCopied(true);
+    setCopied(id);
   }
 
   return (
@@ -80,15 +78,16 @@ const CardDoneRecipes = () => {
             {recipe.doneDate}
 
           </p>
-          {isCopied ? <p>Link copied</p> : false}
 
           <input
             data-testid={ `${index}-horizontal-share-btn` }
             type="image"
             alt="share button"
             src={ shareIcon }
-            onClick={ () => handleClick(recipe.id, recipe.type) }
+            onClick={ () => handleShare(recipe.id, recipe.type) }
           />
+
+          {isCopied === recipe.id && <p>Link copied!</p>}
 
           <p data-testid={ `${index}-horizontal-top-text` }>
             {recipe.type === 'food'
