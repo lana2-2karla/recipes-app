@@ -106,7 +106,6 @@ const Foods = () => {
         { data.map((infoRecipe, index) => index < MAXIMUN && (
           <div key={ Math.random() } id={ index }>
             <CardRecipes
-              type="foods"
               { ...infoRecipe }
               index={ index }
             />

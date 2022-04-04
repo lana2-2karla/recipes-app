@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { doneRecipes } from '../services/checkLocalStorageInfo';
+import { useDispatch, useSelector } from 'react-redux';
+import usePath from '../hooks/usePath';
 import { addProgressToLocal, getProgressFromLocal } from '../services/index';
+import { validationFinishButton } from '../store/actions';
 
-const Ingredients = (infoRecipe) => {
+const Ingredients = () => {
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [checked, setChecked] = useState([]);
-  const [disableButton, setDisabled] = useState(true);
-  const history = useHistory();
-  const { id, label } = infoRecipe;
+  const dispatch = useDispatch();
+  const { routeFoods, id } = usePath();
+  const { currentRecipe } = useSelector((state) => state.progress);
 
   const verifyIDLocalStorage = (newDataIng) => {
     let newChecked = newDataIng.slice();
     let key = '';
-    if (label.includes('/foods/')) key = 'meals';
-    if (label.includes('/drinks/')) key = 'cocktails';
+    if (routeFoods) key = 'meals';
+    if (!routeFoods) key = 'cocktails';
 
     const progress = localStorage.getItem('inProgressRecipes');
     if (!progress) {
@@ -41,11 +42,11 @@ const Ingredients = (infoRecipe) => {
   useEffect(() => {
     const newDataIng = [];
     const newMeasure = [];
-    const infoIngredients = Object.keys(infoRecipe);
+    const infoIngredients = Object.keys(currentRecipe);
     const verifyExistIng = infoIngredients.some((item) => item.includes('strIng'));
     if (verifyExistIng) {
       infoIngredients.forEach((element, index) => {
-        const newIngredient = Object.values(infoRecipe)[index];
+        const newIngredient = Object.values(currentRecipe)[index];
         if (element.includes('strIng')
           && newIngredient !== null && newIngredient.length) {
           newDataIng.push(newIngredient);
@@ -59,17 +60,17 @@ const Ingredients = (infoRecipe) => {
     setIngredients(newDataIng);
     setMeasure(newMeasure);
     verifyIDLocalStorage(newDataIng);
-  }, [infoRecipe]);
+  }, [currentRecipe]);
 
   const handleValidationFinish = (newChecked) => {
     const isAllChecked = newChecked.every((element) => element === true);
-    setDisabled(!isAllChecked);
+    dispatch(validationFinishButton(!isAllChecked));
   };
 
   const handleLocalStorageUpdate = (newChecked) => {
     let key = '';
-    if (label.includes('/foods/')) key = 'meals';
-    if (label.includes('/drinks/')) key = 'cocktails';
+    if (routeFoods) key = 'meals';
+    if (!routeFoods) key = 'cocktails';
     const allCheckedStep = newChecked.map((item, index) => (item && index))
       .filter((item) => item !== false);
     addProgressToLocal(key, { id, ingredients: allCheckedStep });
@@ -81,11 +82,6 @@ const Ingredients = (infoRecipe) => {
     setChecked(newChecked);
     handleValidationFinish(newChecked);
     handleLocalStorageUpdate(newChecked);
-  };
-
-  const handleFinished = () => {
-    doneRecipes({ id, done: infoRecipe, date: new Date() });
-    history.push('/done-recipes');
   };
 
   return (
@@ -108,14 +104,6 @@ const Ingredients = (infoRecipe) => {
           </label>
         </div>
       ))}
-      <button
-        data-testid="finish-recipe-btn"
-        onClick={ handleFinished }
-        disabled={ disableButton }
-        type="button"
-      >
-        Finish Recipe
-      </button>
     </div>
   );
 };
