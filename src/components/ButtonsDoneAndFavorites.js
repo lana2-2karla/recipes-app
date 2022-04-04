@@ -21,7 +21,7 @@ const ButtonsDoneAndFavorites = ({ handleFilter }) => (
     </button>
     <button
       type="button"
-      value="drinks"
+      value="drink"
       data-testid="filter-by-drink-btn"
       onClick={ handleFilter }
     >

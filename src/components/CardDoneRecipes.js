@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import ButtonsDoneAndFavorites from './ButtonsDoneAndFavorites';
+import shareIcon from '../images/shareIcon.svg';
 // import { doneRecipe } from '../services/checkLocalStorageInfo';
 
 const CardDoneRecipes = () => {
@@ -40,10 +42,11 @@ const CardDoneRecipes = () => {
     }
   };
 
-  function handleClick() {
+  function handleClick(id, type) {
+    console.log(isCopied);
     const url = window.location.href;
-    const newUrl = url.replace('/in-progress', '');
-    navigator.clipboard.writeText(newUrl);
+    const newUrl = url.replace('/done-recipes', '');
+    copy(`${newUrl}/${type}s/${id}`);
     setCopied(true);
   }
 
@@ -56,7 +59,7 @@ const CardDoneRecipes = () => {
         <div key={ index }>
           <Link
             data-testid={ `${index}-recipe-card` }
-            to={ `/${recipe.type}/${recipe.id}` }
+            to={ `/${recipe.type}s/${recipe.id}` }
           >
             <img
               src={ recipe.image }
@@ -77,31 +80,26 @@ const CardDoneRecipes = () => {
             {recipe.doneDate}
 
           </p>
+          {isCopied ? <p>Link copied</p> : false}
 
           <input
             data-testid={ `${index}-horizontal-share-btn` }
             type="image"
             alt="share button"
             src={ shareIcon }
-            onClick={ handleClick }
+            onClick={ () => handleClick(recipe.id, recipe.type) }
           />
-          {isCopied ? <p>Link copied</p> : false}
-
-          {/* se a receita é uma comida, renderiza a categoria, nacionalidade,
-
-          se não, renderiza se é alcooliza ou não */}
 
           <p data-testid={ `${index}-horizontal-top-text` }>
             {recipe.type === 'food'
               ? `${recipe.nationality} - ${recipe.category}` : `${recipe.alcoholicOrNot}`}
           </p>
 
-          {/* se a receita for comida, renderiza as tags */}
-          {recipe.type === 'food'
-            ? (recipe.tags.map((tagName) => (
-              <p data-testid={ `${index}-${tagName}-horizontal-tag` }>
-                {tagName}
-              </p>))) : ''}
+          <p
+            data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
+          >
+            { recipe.tags }
+          </p>
 
         </div>
       ))}
