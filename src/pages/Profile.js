@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const Profile = () => {
-  const isVisible = false;
   const history = useHistory();
 
   const verifyUser = () => {
@@ -24,7 +23,6 @@ const Profile = () => {
     <div>
       <Header
         label="Profile"
-        isVisible={ isVisible }
       />
       <div>
         <p data-testid="profile-email">{ verifyUser() }</p>

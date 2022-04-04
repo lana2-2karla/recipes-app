@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePath from '../hooks/usePath';
-import { addProgressToLocal, getProgressFromLocal } from '../services/index';
+import { addProgressToLocal, getProgressFromLocal } from '../services/localStorage';
 import { validationFinishButton } from '../store/actions';
 
 const Ingredients = () => {

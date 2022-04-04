@@ -1,18 +1,11 @@
 // import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
 // import useIngredientsList from '../hooks/useIngredientsList';
 // import usePath from '../hooks/usePath';
-// import { doneRecipes } from '../services/checkLocalStorageInfo';
 // import { addProgressToLocal, getProgressFromLocal } from '../services/index';
 
 // const Ingredients = () => {
 //   const { list, ingredients } = useIngredientsList();
-//   // const [ingredientsItems, setIngredientsItems] = useState([]);
-//   // const [measure, setMeasure] = useState([]);
 //   const [checked, setChecked] = useState([]);
-//   const [disableButton, setDisabled] = useState(true);
-//   const history = useHistory();
-//   // const { id, label } = infoRecipe;
 //   const { id, routeFoods } = usePath();
 
 //   const verifyIDLocalStorage = (newDataIng) => {
@@ -43,28 +36,8 @@
 //   };
 
 //   useEffect(() => {
-//     // const newDataIng = [];
-//     // const newMeasure = [];
-//     // const infoIngredients = Object.keys(infoRecipe);
-//     // const verifyExistIng = infoIngredients.some((item) => item.includes('strIng'));
-//     // if (verifyExistIng) {
-//     //   infoIngredients.forEach((element, index) => {
-//     //     const newIngredient = Object.values(infoRecipe)[index];
-//     //     if (element.includes('strIng')
-//     //       && newIngredient !== null && newIngredient.length) {
-//     //       newDataIng.push(newIngredient);
-//     //     }
-//     //     if (element.includes('strMeas')
-//     //       && newIngredient !== null && newIngredient.length) {
-//     //       newMeasure.push(newIngredient);
-//     //     }
-//     //   });
-//     // }
-//     // setIngredients(newDataIng);
-//     // setMeasure(newMeasure);
 //     verifyIDLocalStorage(ingredients);
-//     // setIngredientsItems(ingredients);
-//   }, []);
+//   }, [ingredients]);
 
 //   const handleValidationFinish = (newChecked) => {
 //     const isAllChecked = newChecked.every((element) => element === true);
@@ -81,16 +54,12 @@
 //   };
 
 //   const handleCheckbox = (index) => {
+//     console.log('realmente ta funcionando :o');
 //     const newChecked = checked
 //       .map((element, indexCheck) => (indexCheck === index ? !element : element));
 //     setChecked(newChecked);
 //     handleValidationFinish(newChecked);
 //     handleLocalStorageUpdate(newChecked);
-//   };
-
-//   const handleFinished = () => {
-//     doneRecipes({ id, done: infoRecipe, date: new Date() });
-//     history.push('/done-recipes');
 //   };
 
 //   return (
@@ -113,14 +82,6 @@
 //           </label>
 //         </div>
 //       ))}
-//       <button
-//         data-testid="finish-recipe-btn"
-//         onClick={ handleFinished }
-//         disabled={ disableButton }
-//         type="button"
-//       >
-//         Finish Recipe
-//       </button>
 //     </div>
 //   );
 // };

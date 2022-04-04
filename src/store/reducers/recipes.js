@@ -13,6 +13,8 @@ const INITIAL_STATE = {
   endpointDrinkInitial: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
   endpointFoodFilters: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
   endpointDrinkFilters: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+  endpointByIngredientsFoods: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+  endpointByIngredientsDrinks: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
 };
 
 const recipes = (state = INITIAL_STATE, action) => {

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import usePath from '../hooks/usePath';
 import requestServer from '../services/requests';
 import { recipeStarted } from '../store/actions';
-// import Ingredients from './Ingredients';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -82,7 +81,6 @@ const DetailsWithoutIng = () => {
       { isCopied ? <p>Link copied!</p> : false}
       <h4 data-testid="recipe-category">{ data.category }</h4>
       <p data-testid="instructions">{ data.instructions }</p>
-      {/* <Ingredients { ...allInfo } /> */}
     </div>
   );
 };

@@ -20,7 +20,6 @@ const Drinks = () => {
   const history = useHistory();
   const MAXIMUN = 12;
   const MAXIMUN_FILTERS = 5;
-  const isVisible = true;
 
   const verifyType = (filtered) => {
     let type = '';
@@ -73,7 +72,6 @@ const Drinks = () => {
     <div>
       <Header
         label="Drinks"
-        isVisible={ isVisible }
         toggleSearch={ toggleSearch }
       />
       { isVisibleSearch && (
