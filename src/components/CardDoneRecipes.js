@@ -47,20 +47,30 @@ const CardDoneRecipes = () => {
     copy(`${newUrl}/${type}s/${id}`);
     setCopied(id);
   }
+  const testTag = (tags) => {
+    if (typeof tags === 'string') {
+      const splitTag = tags.split(',');
+      const newArr = Object.values(splitTag);
+      return newArr;
+    } return [];
+  };
 
   return (
     <div>
       <ButtonsDoneAndFavorites
         handleFilter={ handleFilter }
       />
-      {recipesToRender.map((recipe, index) => (
+
+      {recipesToRender.map(({ id, type, name, image, doneDate, tags,
+        nationality, category, alcoholicOrNot },
+      index) => (
         <div key={ index }>
           <Link
             data-testid={ `${index}-recipe-card` }
-            to={ `/${recipe.type}s/${recipe.id}` }
+            to={ `/${type}s/${id}` }
           >
             <img
-              src={ recipe.image }
+              src={ image }
               alt="done recipe"
               data-testid={ `${index}-horizontal-image` }
             />
@@ -68,14 +78,14 @@ const CardDoneRecipes = () => {
             <p
               data-testid={ `${index}-horizontal-name` }
             >
-              {recipe.name}
+              {name}
             </p>
           </Link>
 
           <p
             data-testid={ `${index}-horizontal-done-date` }
           >
-            {recipe.doneDate}
+            {doneDate}
 
           </p>
 
@@ -84,21 +94,23 @@ const CardDoneRecipes = () => {
             type="image"
             alt="share button"
             src={ shareIcon }
-            onClick={ () => handleShare(recipe.id, recipe.type) }
+            onClick={ () => handleShare(id, type) }
           />
 
-          {isCopied === recipe.id && <p>Link copied!</p>}
+          {isCopied === id && <p>Link copied!</p>}
 
           <p data-testid={ `${index}-horizontal-top-text` }>
-            {recipe.type === 'food'
-              ? `${recipe.nationality} - ${recipe.category}` : `${recipe.alcoholicOrNot}`}
+            {type === 'food'
+              ? `${nationality} - ${category}` : `${alcoholicOrNot}`}
           </p>
-
-          <p
-            data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
-          >
-            { recipe.tags }
-          </p>
+          {testTag(tags) && testTag(tags).map((tag, position) => (
+            <p
+              key={ position }
+              data-testid={ `${position}-${tag}-horizontal-tag` }
+            >
+              { tag }
+            </p>
+          ))}
 
         </div>
       ))}
