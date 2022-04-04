@@ -18,6 +18,7 @@ import IngredientsExploredDrinks from './pages/IngredientsExploredDrinks';
 import NationalitiesExplored from './pages/NationalitiesExplored';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+// import MainPage from './pages/MainPage';
 
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -42,7 +43,7 @@ function App() {
         <Route
           exact
           path="/drinks/:id/in-progress"
-          component={ NotFound }
+          render={ (props) => (<InProgressRecipes { ...props } />) }
         />
         <Route
           exact

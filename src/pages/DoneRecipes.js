@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import ButtonsDoneAndFavorites from '../components/ButtonsDoneAndFavorites';
+// import ButtonsDoneAndFavorites from '../components/ButtonsDoneAndFavorites';
 import CardDoneRecipes from '../components/CardDoneRecipes';
 
 const DoneRecipes = () => {
@@ -12,7 +12,6 @@ const DoneRecipes = () => {
         label="Done Recipes"
         isVisible={ isVisible }
       />
-      <ButtonsDoneAndFavorites />
       <CardDoneRecipes />
 
     </div>

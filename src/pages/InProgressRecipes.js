@@ -1,16 +1,25 @@
 import React from 'react';
-// import Header from '../components/Header';
+// import { useSelector } from 'react-redux';
+import DetailsWithoutIng from '../components/DetailsWithoutIngredients';
+// import Ingredients from '../components/Ingredients';
 
-const InProgressRecipes = () => {
-  const isVisible = false;
+// const InProgressRecipes = () => {
+// const { disableButton } = useSelector((state) => state.finish);
 
-  return (
-    // <Header
-    //   label="Details Drinks"
-    //   isVisible={ isVisible }
-    // />
-    <div>{`In progress ${isVisible}`}</div>
-  );
-};
+//   return (
+//     <div>
+//       <DetailsWithoutIng />
+//       {/* <button
+//         data-testid="finish-recipe-btn"
+//         // onClick={ }
+//         disabled={ disableButton }
+//         type="button"
+//       >
+//         Finish Recipe
+//       </button> */}
+//     </div>
+//   );
+// };
 
+const InProgressRecipes = () => (<div><DetailsWithoutIng /></div>);
 export default InProgressRecipes;
