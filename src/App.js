@@ -16,7 +16,7 @@ import FoodsExplored from './pages/FoodsExplored';
 import NationalitiesExplored from './pages/NationalitiesExplored';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
-import IngredientsExplored from './pages/IngredientsExploredFoods';
+import IngredientsExplored from './pages/IngredientsExplored';
 // import MainPage from './pages/MainPage';
 
 // import rockGlass from './images/rockGlass.svg';

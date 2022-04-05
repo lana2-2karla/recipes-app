@@ -1,11 +1,17 @@
 // import React, { useEffect, useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// // import { useSelector } from 'react-redux';
 // import useIngredientsList from '../hooks/useIngredientsList';
 // import usePath from '../hooks/usePath';
-// import { addProgressToLocal, getProgressFromLocal } from '../services/index';
+// import { addProgressToLocal, getProgressFromLocal } from '../services/localStorage';
+// import { validationFinishButton } from '../store/actions';
 
 // const Ingredients = () => {
+//   const dispatch = useDispatch();
+//   //   const { currentRecipe } = useSelector((state) => state.progress);
 //   const { list, ingredients } = useIngredientsList();
 //   const [checked, setChecked] = useState([]);
+//   //   const [isLoading, setIsLoading] = useState(true);
 //   const { id, routeFoods } = usePath();
 
 //   const verifyIDLocalStorage = (newDataIng) => {
@@ -37,11 +43,11 @@
 
 //   useEffect(() => {
 //     verifyIDLocalStorage(ingredients);
-//   }, [ingredients]);
+//   }, []);
 
 //   const handleValidationFinish = (newChecked) => {
 //     const isAllChecked = newChecked.every((element) => element === true);
-//     setDisabled(!isAllChecked);
+//     dispatch(validationFinishButton(!isAllChecked));
 //   };
 
 //   const handleLocalStorageUpdate = (newChecked) => {
@@ -54,7 +60,6 @@
 //   };
 
 //   const handleCheckbox = (index) => {
-//     console.log('realmente ta funcionando :o');
 //     const newChecked = checked
 //       .map((element, indexCheck) => (indexCheck === index ? !element : element));
 //     setChecked(newChecked);
@@ -86,3 +91,4 @@
 //   );
 // };
 // export default Ingredients;
+// Continua com bug, duplica a lista de ingredients

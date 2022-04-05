@@ -10,11 +10,15 @@ import Footer from '../components/Footer';
 
 const Drinks = () => {
   const { endpointDrinkInitial,
-    endpointDrinkFilters } = useSelector((state) => state.recipes);
+    endpointDrinkFilters, ingredient } = useSelector((state) => state.recipes);
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState({});
   const [filterCategory, setFilterCategory] = useState([]);
-  const [endpoint, setEndpoint] = useState(endpointDrinkInitial);
+  const verifyEndpoitInitial = () => {
+    if (ingredient) return ingredient;
+    return endpointDrinkInitial;
+  };
+  const [endpoint, setEndpoint] = useState(verifyEndpoitInitial());
   const [isVisibleSearch, setIsVisibleSearch] = useState(false);
   const [restaure, setRestaure] = useState(false);
   const history = useHistory();
