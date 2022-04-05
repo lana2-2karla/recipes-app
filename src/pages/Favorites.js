@@ -12,13 +12,13 @@ const Favorites = () => {
   const [recipesFromStorage, setRecipesFromStorage] = useState([]);
   const [recipesToRender, setRecipesToRender] = useState([]);
   const [isCopied, setCopied] = useState();
-  // const [setIsFavorited] = useState(true);
 
   useEffect(() => {
     const getRecipesFromStorage = () => {
       const doneRecipes = localStorage.getItem('favoriteRecipes');
       if (doneRecipes) {
         const results = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        console.log(results);
         setRecipesFromStorage(results);
         setRecipesToRender(results);
       }
@@ -54,8 +54,9 @@ const Favorites = () => {
   }
 
   const handleFavorite = (id) => {
+    const disfavor = recipesToRender.filter((item) => item.id !== id);
+    setRecipesToRender(disfavor);
     removeFavoriteFromLocal(id);
-    // setIsFavorited(false);
   };
 
   return (
@@ -105,6 +106,7 @@ const Favorites = () => {
             src={ shareIcon }
             onClick={ () => handleShare(id, type) }
           />
+
           <input
             data-testid={ `${index}-horizontal-favorite-btn` }
             name="favorite-btn"
