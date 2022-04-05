@@ -8,7 +8,6 @@ import blackHeartPicture from '../images/blackHeartIcon.svg';
 import { removeFavoriteFromLocal } from '../services/localStorage';
 
 const Favorites = () => {
-  const isVisible = false;
   const [recipesFromStorage, setRecipesFromStorage] = useState([]);
   const [recipesToRender, setRecipesToRender] = useState([]);
   const [isCopied, setCopied] = useState();
@@ -63,7 +62,6 @@ const Favorites = () => {
     <div>
       <Header
         label="Favorite Recipes"
-        isVisible={ isVisible }
       />
       <ButtonsDoneAndFavorites
         handleFilter={ handleFilter }

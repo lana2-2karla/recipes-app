@@ -47,13 +47,6 @@ const CardDoneRecipes = () => {
     copy(`${newUrl}/${type}s/${id}`);
     setCopied(id);
   }
-  const testTag = (tags) => {
-    if (typeof tags === 'string') {
-      const splitTag = tags.split(',');
-      const newArr = Object.values(splitTag);
-      return newArr;
-    } return [];
-  };
 
   return (
     <div>
@@ -103,10 +96,10 @@ const CardDoneRecipes = () => {
             {type === 'food'
               ? `${nationality} - ${category}` : `${alcoholicOrNot}`}
           </p>
-          {testTag(tags) && testTag(tags).map((tag, position) => (
+          {tags.length && tags.map((tag, position) => (
             <p
               key={ position }
-              data-testid={ `${position}-${tag}-horizontal-tag` }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
             >
               { tag }
             </p>
