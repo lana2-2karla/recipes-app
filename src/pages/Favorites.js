@@ -1,15 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-const Favorites = () => {
-  const isVisible = false;
-
-  return (
-    <Header
-      label="Favorite Recipes"
-      isVisible={ isVisible }
-    />
-  );
-};
+const Favorites = () => (
+  <Header
+    label="Favorite Recipes"
+  />
+);
 
 export default Favorites;

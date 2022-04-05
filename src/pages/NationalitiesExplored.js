@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import requestServer from '../services/requests';
 
 const NationalitiesExplored = () => {
-  const isVisible = true;
   const [countries, setCountries] = useState([]);
   const [valuesFiltered, setValuesFiltered] = useState([]);
   const MAXIMUN = 12;
@@ -39,7 +38,6 @@ const NationalitiesExplored = () => {
     <div>
       <Header
         label="Explore Nationalities"
-        isVisible={ isVisible }
       />
       <div>
         <label htmlFor="nationality-dropdown">

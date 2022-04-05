@@ -1,4 +1,6 @@
-import { addDoneToLocal, addFavoriteToLocal, removeFavoriteFromLocal } from '.';
+import { addDoneToLocal,
+  addFavoriteToLocal,
+  removeFavoriteFromLocal } from './localStorage';
 
 const getFavorites = () => JSON.parse(localStorage.getItem('favoriteRecipes'));
 
