@@ -38,7 +38,6 @@ const NationalitiesExplored = () => {
     <div>
       <Header
         label="Explore Nationalities"
-        isVisible={ isVisible }
       />
       <div>
         <label htmlFor="nationality-dropdown">
