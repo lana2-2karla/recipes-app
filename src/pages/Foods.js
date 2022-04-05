@@ -12,18 +12,21 @@ import { saveFoodsAndDrinks } from '../store/actions';
 const Foods = () => {
   const { endpointFoodInitial,
     endpointFoodFilters, recipesFounded: { foods },
-    filters } = useSelector((state) => state.recipes);
+    filters, ingredient } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
   const [data, setData] = useState(foods);
   const [filter, setFilter] = useState({});
   const [filterCategory, setFilterCategory] = useState(filters.foods);
-  const [endpoint, setEndpoint] = useState(endpointFoodInitial);
+  const verifyEndpoitInitial = () => {
+    if (ingredient) return ingredient;
+    return endpointFoodInitial;
+  };
+  const [endpoint, setEndpoint] = useState(verifyEndpoitInitial());
   const [isVisibleSearch, setIsVisibleSearch] = useState(false);
   const [restaure, setRestaure] = useState(false);
   const history = useHistory();
   const MAXIMUN = 12;
   const MAXIMUN_FILTERS = 5;
-  const isVisible = true;
 
   const verifyType = (filtered) => {
     let type = '';
@@ -77,7 +80,6 @@ const Foods = () => {
     <div>
       <Header
         label="Foods"
-        isVisible={ isVisible }
         toggleSearch={ toggleSearch }
       />
       { isVisibleSearch && (
@@ -106,7 +108,6 @@ const Foods = () => {
         { data.map((infoRecipe, index) => index < MAXIMUN && (
           <div key={ Math.random() } id={ index }>
             <CardRecipes
-              type="foods"
               { ...infoRecipe }
               index={ index }
             />

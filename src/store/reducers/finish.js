@@ -1,6 +1,6 @@
 import { VERIFY_CHECK_ING } from '../actions';
 
-const INITIAL_STATE = { disableButton: false };
+const INITIAL_STATE = { disableButton: true };
 const finish = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case VERIFY_CHECK_ING:

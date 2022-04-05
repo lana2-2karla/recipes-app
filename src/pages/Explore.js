@@ -4,14 +4,12 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const Explore = () => {
-  const isVisible = false;
   const history = useHistory();
 
   return (
     <div>
       <Header
-        label="Explore "
-        isVisible={ isVisible }
+        label="Explore"
       />
       <div>
         <button

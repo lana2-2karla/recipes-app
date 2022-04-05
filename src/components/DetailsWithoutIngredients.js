@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import usePath from '../hooks/usePath';
 import requestServer from '../services/requests';
 import { recipeStarted } from '../store/actions';
-import Ingredients from './Ingredients';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -12,8 +11,7 @@ import { checkInfoInLocal, toggleFavorite } from '../services/checkLocalStorageI
 
 const DetailsWithoutIng = () => {
   const dispatch = useDispatch();
-  const { params: { id } } = useRouteMatch();
-  const { location: { pathname } } = useHistory();
+  const { routeFoods, id } = usePath();
   const [allInfo, setAllInfo] = useState([]);
   const [isCopied, setCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -34,7 +32,7 @@ const DetailsWithoutIng = () => {
   };
   useEffect(() => {
     const requestAPI = async () => {
-      const results = await requestServer(verifyType(id, pathname));
+      const results = await requestServer(verifyType(id, routeFoods));
       const type = (results.meals ? results.meals : results.drinks);
       dispatch(recipeStarted(type[0]));
       setAllInfo(type[0]);
@@ -42,12 +40,12 @@ const DetailsWithoutIng = () => {
       setdata((previous) => ({ ...previous,
         category: type[0].strCategory,
         instructions: type[0].strInstructions }));
-      if (pathname.includes('/foods/')) {
+      if (routeFoods) {
         setdata((previous) => ({ ...previous,
           title: type[0].strMeal,
           photo: type[0].strMealThumb }));
       }
-      if (pathname.includes('/drinks/')) {
+      if (!routeFoods) {
         setdata((previous) => ({ ...previous,
           title: type[0].strDrink,
           photo: type[0].strDrinkThumb }));
@@ -83,7 +81,6 @@ const DetailsWithoutIng = () => {
       { isCopied ? <p>Link copied!</p> : false}
       <h4 data-testid="recipe-category">{ data.category }</h4>
       <p data-testid="instructions">{ data.instructions }</p>
-      <Ingredients { ...allInfo } id={ id } label={ pathname } />
     </div>
   );
 };
