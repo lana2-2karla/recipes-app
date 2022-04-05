@@ -4,11 +4,12 @@ import { useHistory } from 'react-router-dom';
 import '../styles/header.css';
 import profilePicture from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import useHeaderSearch from '../hooks/useHeaderSearch';
 
 const Header = (props) => {
-  const { label, isVisible, toggleSearch } = props;
+  const { label, toggleSearch } = props;
+  const { isVisibleSearchButton } = useHeaderSearch();
   const history = useHistory();
-  // console.log(history);
 
   const handleClick = () => {
     history.push('/profile');
@@ -26,7 +27,7 @@ const Header = (props) => {
       />
       <h1 data-testid="page-title">{label}</h1>
       {
-        isVisible && (
+        isVisibleSearchButton && (
           <input
             data-testid="search-top-btn"
             name="search-btn"
@@ -46,7 +47,7 @@ Header.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   label: PropTypes.string.isRequired,
-  isVisible: PropTypes.bool.isRequired,
+  // isVisible: PropTypes.bool.isRequired,
   toggleSearch: PropTypes.func.isRequired,
 };
 

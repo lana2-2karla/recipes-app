@@ -1,21 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
-// import ButtonsDoneAndFavorites from '../components/ButtonsDoneAndFavorites';
 import CardDoneRecipes from '../components/CardDoneRecipes';
 
-const DoneRecipes = () => {
-  const isVisible = false;
+const DoneRecipes = () => (
+  <div>
+    <Header
+      label="Done Recipes"
+    />
+    <CardDoneRecipes />
 
-  return (
-    <div>
-      <Header
-        label="Done Recipes"
-        isVisible={ isVisible }
-      />
-      <CardDoneRecipes />
-
-    </div>
-  );
-};
+  </div>
+);
 
 export default DoneRecipes;

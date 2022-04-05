@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import ButtonsDoneAndFavorites from '../components/ButtonsDoneAndFavorites';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartPicture from '../images/blackHeartIcon.svg';
-import { removeFavoriteFromLocal } from '../services/index';
+import { removeFavoriteFromLocal } from '../services/localStorage';
 
 const Favorites = () => {
   const isVisible = false;

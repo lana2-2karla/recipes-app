@@ -13,11 +13,10 @@ import Favorites from './pages/Favorites';
 import Explore from './pages/Explore';
 import DrinksExplored from './pages/DrinksExplored';
 import FoodsExplored from './pages/FoodsExplored';
-import IngredientsExploredFoods from './pages/IngredientsExploredFoods';
-import IngredientsExploredDrinks from './pages/IngredientsExploredDrinks';
 import NationalitiesExplored from './pages/NationalitiesExplored';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import IngredientsExplored from './pages/IngredientsExplored';
 // import MainPage from './pages/MainPage';
 
 // import rockGlass from './images/rockGlass.svg';
@@ -57,12 +56,12 @@ function App() {
         <Route
           exact
           path="/explore/foods/ingredients"
-          component={ IngredientsExploredFoods }
+          component={ IngredientsExplored }
         />
         <Route
           exact
           path="/explore/drinks/ingredients"
-          component={ IngredientsExploredDrinks }
+          component={ IngredientsExplored }
         />
 
         <Route
