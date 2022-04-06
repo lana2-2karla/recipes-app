@@ -48,6 +48,13 @@ const CardDoneRecipes = () => {
     setCopied(id);
   }
 
+  function handleTags(tags) {
+    if (typeof tags === 'string') {
+      return tags.split(',');
+    }
+    return tags;
+  }
+
   return (
     <div>
       <ButtonsDoneAndFavorites
@@ -96,9 +103,10 @@ const CardDoneRecipes = () => {
             {type === 'food'
               ? `${nationality} - ${category}` : `${alcoholicOrNot}`}
           </p>
-          {tags.length && tags.map((tag, position) => (
+
+          { tags && handleTags(tags).length && handleTags(tags).map((tag, index2) => (
             <p
-              key={ position }
+              key={ index2 }
               data-testid={ `${index}-${tag}-horizontal-tag` }
             >
               { tag }
@@ -107,6 +115,7 @@ const CardDoneRecipes = () => {
 
         </div>
       ))}
+
     </div>
   );
 };
