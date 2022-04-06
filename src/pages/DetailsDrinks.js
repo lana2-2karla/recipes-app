@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { recipeStarted } from '../store/actions';
 import sharePicture from '../images/shareIcon.svg';
 import blackHeartPicture from '../images/blackHeartIcon.svg';
 import whiteHeartPicture from '../images/whiteHeartIcon.svg';
 import requestServer from '../services/requests';
 import '../index.css';
-import { checkInfoInLocal, toggleFavorite } from '../services/checkLocalStorageInfo';
-// import useIngredientsList from '../functions/useIngredientsList';
+import { checkInfoInLocal, toggleFavorite,
+  checkDoneInLocalStorage } from '../services/checkLocalStorageInfo';
+import Button from '../components/Button';
 
 const DetailsDrinks = () => {
   const { params: { id } } = useRouteMatch();
-  const history = useHistory();
   const [ingredient, setIngredient] = useState([]);
   const [isCopied, setCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -23,6 +23,8 @@ const DetailsDrinks = () => {
     strDrinkThumb: '',
   });
   const [foods, setFoods] = useState([]);
+  const [isDone, setIsDone] = useState(false);
+
   const dispatch = useDispatch();
   const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const urlFoods = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -71,9 +73,7 @@ const DetailsDrinks = () => {
     setIsFavorited(checkToggle);
     toggleFavorite({ id, favorite: data });
   };
-  const handleStarted = () => {
-    history.push(`/drinks/${id}/in-progress`);
-  };
+
   useEffect(() => {
     const requestAPI = async () => {
       const six = 6;
@@ -86,6 +86,7 @@ const DetailsDrinks = () => {
       setIsFavorited(checkInfoInLocal(id));
       setIngredient(arrIngredients(detailRecipe));
       dispatch(recipeStarted(detailRecipe));
+      setIsDone(checkDoneInLocalStorage(id));
     };
     requestAPI();
   }, []);
@@ -145,14 +146,11 @@ const DetailsDrinks = () => {
           ))
         }
       </div>
-      <button
-        className="btn-fixed"
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ handleStarted }
-      >
-        Start Recipe
-      </button>
+      {
+        !isDone && (
+          <Button />
+        )
+      }
     </div>
   );
 };

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { recipeStarted } from '../store/actions';
 import sharePicture from '../images/shareIcon.svg';
 import blackHeartPicture from '../images/blackHeartIcon.svg';
 import whiteHeartPicture from '../images/whiteHeartIcon.svg';
 import requestServer from '../services/requests';
 import '../index.css';
-import { checkInfoInLocal, toggleFavorite } from '../services/checkLocalStorageInfo';
+import { checkInfoInLocal, toggleFavorite,
+  checkDoneInLocalStorage } from '../services/checkLocalStorageInfo';
+// import { checkInProgressLocalStorage } from '../services/index';
+import Button from '../components/Button';
 
 const DetailsFoods = () => {
   const { params: { id } } = useRouteMatch();
-  const history = useHistory();
   const [ingredient, setIngredient] = useState([]);
   const [isCopied, setCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -23,9 +25,13 @@ const DetailsFoods = () => {
     strYoutube: '',
   });
   const [drinks, setDrinks] = useState([]);
+  const [isDone, setIsDone] = useState(false);
+  console.log(isDone, 'botao');
+
   const dispatch = useDispatch();
   const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const urlDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
   const arrIngredients = (details) => {
     const arrValues = Object.values(details);
     const twenty = 20;
@@ -51,9 +57,18 @@ const DetailsFoods = () => {
     setIsFavorited(checkToggle);
     toggleFavorite({ id, favorite: data });
   };
-  const handleStarted = () => {
-    history.push(`/foods/${id}/in-progress`);
-  };
+
+  // const btnDetails = () => {
+  //   console.log(isDone);
+  //   if (!isDone && inProgress) {
+  //     return 'Continue Recipe';
+  //   }
+  //   if (!isDone) {
+  //     return 'Start Recipe';
+  //   }
+  //   return null;
+  // };
+
   useEffect(() => {
     const requestAPI = async () => {
       const six = 6;
@@ -66,6 +81,7 @@ const DetailsFoods = () => {
       setIsFavorited(checkInfoInLocal(id));
       setIngredient(arrIngredients(detailRecipe));
       dispatch(recipeStarted(detailRecipe));
+      setIsDone(checkDoneInLocalStorage(id));
     };
     requestAPI();
   }, []);
@@ -131,14 +147,11 @@ const DetailsFoods = () => {
           ))
         }
       </div>
-      <button
-        className="btn-fixed"
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ handleStarted }
-      >
-        Start Recipe
-      </button>
+      {
+        !isDone && (
+          <Button />
+        )
+      }
     </div>
   );
 };

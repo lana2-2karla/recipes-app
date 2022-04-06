@@ -34,13 +34,15 @@ export const toggleFavorite = (infoFavorite) => {
 const getDones = () => JSON.parse(localStorage.getItem('doneRecipes'));
 
 export const checkDoneInLocalStorage = (id) => {
-  const done = localStorage.getItem('doneRecipes');
-  if (!done) {
+  // const done = localStorage.getItem('doneRecipes');
+  const dones = getDones();
+  // console.log(dones, 'dones');
+  if (!dones) {
     return false;
   }
-  const dones = getDones();
   if (dones) {
     const doneFound = dones.some((doneRecipe) => doneRecipe.id === id);
+    console.log(doneFound);
     return doneFound;
   }
   return false;
