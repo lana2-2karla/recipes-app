@@ -7,7 +7,6 @@ const Button = () => {
   const history = useHistory();
   const { location } = history;
   // const [inProgress, setInProgress] = useState(false);
-
   const inProgress = checkInProgressLocalStorage(id);
   console.log(inProgress, 'localStorage');
   const handleStarted = () => {
