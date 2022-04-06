@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import './App.css';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
@@ -25,59 +24,57 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route exact path="/foods" component={ Foods } />
-        <Route exact path="/drinks" component={ Drinks } />
-        <Route
-          exact
-          path="/foods/:id"
-          render={ (props) => (<DetailsFoods { ...props } />) }
-        />
-        <Route
-          exact
-          path="/drinks/:id"
-          render={ (props) => (<DetailsDrinks { ...props } />) }
-        />
-        <Route
-          exact
-          path="/drinks/:id/in-progress"
-          render={ (props) => (<InProgressRecipes { ...props } />) }
-        />
-        <Route
-          exact
-          path="/foods/:id/in-progress"
-          render={ (props) => (<InProgressRecipes { ...props } />) }
-        />
-        <Route exact path="/explore" component={ Explore } />
-        <Route exact path="/explore/foods" component={ FoodsExplored } />
-        <Route exact path="/explore/drinks" component={ DrinksExplored } />
+    <Switch>
+      <Route exact path="/" component={ Login } />
+      <Route exact path="/foods" component={ Foods } />
+      <Route exact path="/drinks" component={ Drinks } />
+      <Route
+        exact
+        path="/foods/:id"
+        render={ (props) => (<DetailsFoods { ...props } />) }
+      />
+      <Route
+        exact
+        path="/drinks/:id"
+        render={ (props) => (<DetailsDrinks { ...props } />) }
+      />
+      <Route
+        exact
+        path="/drinks/:id/in-progress"
+        render={ (props) => (<InProgressRecipes { ...props } />) }
+      />
+      <Route
+        exact
+        path="/foods/:id/in-progress"
+        render={ (props) => (<InProgressRecipes { ...props } />) }
+      />
+      <Route exact path="/explore" component={ Explore } />
+      <Route exact path="/explore/foods" component={ FoodsExplored } />
+      <Route exact path="/explore/drinks" component={ DrinksExplored } />
 
-        <Route
-          exact
-          path="/explore/foods/ingredients"
-          component={ IngredientsExploredFoods }
-        />
-        <Route
-          exact
-          path="/explore/drinks/ingredients"
-          component={ IngredientsExploredDrinks }
-        />
+      <Route
+        exact
+        path="/explore/foods/ingredients"
+        component={ IngredientsExploredFoods }
+      />
+      <Route
+        exact
+        path="/explore/drinks/ingredients"
+        component={ IngredientsExploredDrinks }
+      />
 
-        <Route
-          exact
-          path="/explore/foods/nationalities"
-          component={ NationalitiesExplored }
-        />
+      <Route
+        exact
+        path="/explore/foods/nationalities"
+        component={ NationalitiesExplored }
+      />
 
-        <Route exact path="/profile" component={ Profile } />
-        <Route exact path="/done-recipes" component={ DoneRecipes } />
-        <Route exact path="/favorite-recipes" component={ Favorites } />
+      <Route exact path="/profile" component={ Profile } />
+      <Route exact path="/done-recipes" component={ DoneRecipes } />
+      <Route exact path="/favorite-recipes" component={ Favorites } />
 
-        <Route path="*" component={ NotFound } />
-      </Switch>
-    </BrowserRouter>
+      <Route path="*" component={ NotFound } />
+    </Switch>
   );
 }
 
