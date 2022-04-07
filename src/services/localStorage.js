@@ -18,6 +18,21 @@ export const addProgressToLocal = (key, inProgressRecipe) => {
   }
 };
 
+export const checkInProgressLocalStorage = (id) => {
+  // const inProgress = localStorage.getItem('inProgressRecipes');
+  const progresses = getProgressFromLocal();
+  console.log(progresses);
+  if (!progresses) {
+    return false;
+  }
+  const { meals = [], cocktails = [] } = progresses;
+  if (meals[id] || cocktails[id]) {
+    console.log('entrou');
+    return true;
+  }
+  return false;
+};
+
 // OUTPUT : { cocktails: {id1: [0, 4, 3], id2: [2, 3, 5]}, meals: {} }
 // localStorage Finished
 export const getDoneFromLocal = () => JSON
@@ -26,6 +41,7 @@ export const setDoneToLocal = (newDone) => localStorage
   .setItem('doneRecipes', JSON.stringify(newDone));
 
 export const addDoneToLocal = (doneRecipe) => {
+  console.log(doneRecipe);
   if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
     localStorage.setItem('doneRecipes', JSON
       .stringify([]));
