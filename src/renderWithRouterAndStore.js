@@ -11,7 +11,7 @@ const renderWithRouterAndStore = (component) => {
     ...render(
       <Provider store={ store }>
         <Router history={ history }>{component}</Router>
-        ), history,
+        , history,
       </Provider>, history,
     ),
   };

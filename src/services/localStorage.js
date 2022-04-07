@@ -25,7 +25,7 @@ export const checkInProgressLocalStorage = (id) => {
   if (!progresses) {
     return false;
   }
-  const { meals, cocktails } = progresses;
+  const { meals = [], cocktails = [] } = progresses;
   if (meals[id] || cocktails[id]) {
     console.log('entrou');
     return true;

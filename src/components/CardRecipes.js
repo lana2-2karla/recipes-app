@@ -2,21 +2,25 @@ import React from 'react';
 import PropTypes, { number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import '../styles/card.css';
+import usePath from '../hooks/usePath';
+// import useCreateInfo from '../hooks/useCreateInfo';
 // import { Card } from 'react-bootstrap';
 
 const CardRecipes = (infoRecipes) => {
-  const { index, type } = infoRecipes;
+  const { index } = infoRecipes;
+  // const { info: { page, name, img } } = useCreateInfo();
+  const { routeFoods } = usePath();
   let page;
   let name;
   let img;
-  if (type === 'foods') {
+  if (routeFoods) {
     const { idMeal, strMeal, strMealThumb } = infoRecipes;
     page = `/foods/${idMeal}`;
     name = strMeal;
     img = strMealThumb;
   }
 
-  if (type === 'drinks') {
+  if (!routeFoods) {
     const { idDrink, strDrink, strDrinkThumb } = infoRecipes;
     page = `/drinks/${idDrink}`;
     name = strDrink;

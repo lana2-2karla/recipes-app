@@ -1,8 +1,11 @@
-import { addDoneToLocal, addFavoriteToLocal, removeFavoriteFromLocal } from '.';
+import { addDoneToLocal,
+  addFavoriteToLocal,
+  removeFavoriteFromLocal } from './localStorage';
 
 const getFavorites = () => JSON.parse(localStorage.getItem('favoriteRecipes'));
 
 export const checkInfoInLocal = (id) => {
+  console.log('entrou');
   const favorite = localStorage.getItem('favoriteRecipes');
   if (!favorite) {
     return false;
@@ -17,6 +20,7 @@ export const checkInfoInLocal = (id) => {
 
 export const toggleFavorite = (infoFavorite) => {
   const { id, favorite } = infoFavorite;
+  console.log('entrou');
   const isFavorite = checkInfoInLocal(id);
   const objectFavorite = {
     id,

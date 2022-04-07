@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const DrinksExplore = () => {
-  const isVisible = false;
   const history = useHistory();
 
   async function handleClick() {
@@ -19,7 +18,6 @@ const DrinksExplore = () => {
     <div>
       <Header
         label="Explore Drinks"
-        isVisible={ isVisible }
       />
       <div>
         <button

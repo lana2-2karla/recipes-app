@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { checkInProgressLocalStorage } from '../services/index';
+import { checkInProgressLocalStorage } from '../services/localStorage';
 
 const Button = () => {
   const { params: { id } } = useRouteMatch();
@@ -11,9 +11,9 @@ const Button = () => {
   console.log(inProgress, 'localStorage');
   const handleStarted = () => {
     if (location.pathname.includes('/foods')) {
-      history.push(`/foods/${id}/in-progress`);
+      return history.push(`/foods/${id}/in-progress`);
     }
-    history.push(`/drinks/${id}/in-progress`);
+    return history.push(`/drinks/${id}/in-progress`);
   };
 
   return (

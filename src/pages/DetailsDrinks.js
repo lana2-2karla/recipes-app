@@ -13,6 +13,7 @@ import Button from '../components/Button';
 
 const DetailsDrinks = () => {
   const { params: { id } } = useRouteMatch();
+  console.log(id, 'id');
   const [ingredient, setIngredient] = useState([]);
   const [isCopied, setCopied] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
