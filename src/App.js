@@ -51,16 +51,16 @@ function App() {
       <Route exact path="/explore/foods" component={ FoodsExplored } />
       <Route exact path="/explore/drinks" component={ DrinksExplored } />
 
-        <Route
-          exact
-          path="/explore/foods/ingredients"
-          component={ IngredientsExplored }
-        />
-        <Route
-          exact
-          path="/explore/drinks/ingredients"
-          component={ IngredientsExplored }
-        />
+      <Route
+        exact
+        path="/explore/foods/ingredients"
+        component={ IngredientsExplored }
+      />
+      <Route
+        exact
+        path="/explore/drinks/ingredients"
+        component={ IngredientsExplored }
+      />
 
       <Route
         exact
