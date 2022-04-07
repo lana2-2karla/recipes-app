@@ -1,14 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
-// import CardDoneRecipes from '../components/CardDoneRecipes';
+import CardDoneRecipes from '../components/CardDoneRecipes';
 
 const DoneRecipes = () => (
-  <>
+  <div>
     <Header
       label="Done Recipes"
     />
-    {/* <ButtonsDoneAndFavorites /> */}
-  </>
+    <CardDoneRecipes />
+
+  </div>
 );
 
 export default DoneRecipes;
