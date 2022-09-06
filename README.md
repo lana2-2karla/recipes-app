@@ -9,4 +9,6 @@ O Save My Dinner é um aplicativo mobile capaz de mostrar e filtrar receitas tí
 React.js,
 React Hooks,
 Redux,
-React Testing Library
+React Testing Library,
+Html,
+Css
